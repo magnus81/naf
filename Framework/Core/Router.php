@@ -37,7 +37,7 @@ class Router
 	public static function route()
 	{
 		// Set path to routes file
-		self::$routes_path = BASE_PATH . 'framework/Config/routes.php';
+		self::$routes_path = BASE_PATH . '/Config/routes.php';
 
 		// Collect all routes
 		self::collectRoutes();

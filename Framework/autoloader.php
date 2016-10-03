@@ -1,7 +1,6 @@
 <?php
 
-// TODO: This needs to be done nicer. We cant always know the base path
-define('BASE_PATH', '/home/magnus/dev/');
+define('BASE_PATH', realpath(__DIR__ . '/..'));
 
 /**
  * autoloader
@@ -11,7 +10,7 @@ define('BASE_PATH', '/home/magnus/dev/');
  * @return void
  */
 function autoloader($class) {
-	$filename = BASE_PATH . str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
+	$filename = BASE_PATH . '/../' . str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
 	include $filename;
 	if (is_callable([$class, '__init__']))
 		$class::__init__();
@@ -19,4 +18,4 @@ function autoloader($class) {
 spl_autoload_register('autoloader');
 
 // Include helper functions file
-include BASE_PATH . 'framework/framework/helpers.php';
+include BASE_PATH . '/framework/helpers.php';
