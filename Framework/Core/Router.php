@@ -127,6 +127,13 @@ class Router
 		self::$aliases[$alias] = $route;
 	}
 
+	/**
+	 * Router::getRouteForAlias()
+	 *
+	 * Match route with alias and return
+	 * @param  $alias
+	 * @return
+	 */
 	public static function getRouteForAlias($alias)
 	{
 		return (isset(self::$aliases[$alias]) ? self::$aliases[$alias] : null);
