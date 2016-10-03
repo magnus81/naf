@@ -17,12 +17,12 @@ class Pages extends Controller
 {
 	public static function home()
 	{
-		return view('index', ['test' => 'super cool awesome function']);
+		return view('index', ['test' => 'awesome']);
 	}
 
 	public static function postHome()
 	{
-		return View::render('index', ['post' => 'yes']);
+		return View::render('index', ['test' => Request::get('username', 'no name')]);
 	}
 
 	public static function test()
