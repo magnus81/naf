@@ -13,6 +13,8 @@
 			<input type="text" name="username">
 			<input type="submit" value="Send">
 		</form>
+
+		<a href="<?php  echo route('testpage'); ?>">Here is a link for you</a>
 		
 	</body>
 </html>

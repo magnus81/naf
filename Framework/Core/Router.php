@@ -26,6 +26,14 @@ class Router
 	 */
 	private static $routes;
 
+	/**
+	 * Router::$aliases
+	 *
+	 * Holder for all user generated route aliases
+	 * @var array
+	 */
+	private static $aliases;
+
 	public static function route()
 	{
 		// Set path to routes file
@@ -87,6 +95,9 @@ class Router
 	public static function get($route, $props = null)
 	{
 		self::$routes['GET'][$route] = $props;
+
+		if (isset($props['alias']))
+			self::addAlias($props['alias'], $route);
 	}
 
 	/**
@@ -99,5 +110,25 @@ class Router
 	public static function post($route, $props = null)
 	{
 		self::$routes['POST'][$route] = $props;
+
+		if (isset($props['alias']))
+			self::addAlias($props['alias'], $route);
+	}
+
+	/**
+	 * Router::addAlias()
+	 *
+	 * Adds alias for route
+	 * @param $alias
+	 * @param $route
+	 */
+	private static function addAlias($alias, $route)
+	{
+		self::$aliases[$alias] = $route;
+	}
+
+	public static function getRouteForAlias($alias)
+	{
+		return (isset(self::$aliases[$alias]) ? self::$aliases[$alias] : null);
 	}
 }

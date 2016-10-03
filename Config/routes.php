@@ -4,6 +4,7 @@ use Framework\Framework\Core\Router;
 Router::get('/', [
 	'controller' => 'Pages',
 	'func'       => 'home',
+	'alias'      => 'index'
 ]);
 
 Router::post('/', [
@@ -13,5 +14,6 @@ Router::post('/', [
 
 Router::get('/test', [
 	'controller' => 'Pages',
-	'func'       => 'test'
+	'func'       => 'test',
+	'alias'      => 'testpage'
 ]);
