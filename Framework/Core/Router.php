@@ -136,6 +136,11 @@ class Router
 	 */
 	public static function getRouteForAlias($alias)
 	{
-		return (isset(self::$aliases[$alias]) ? self::$aliases[$alias] : null);
+		if (!isset(self::$aliases[$alias])) {
+			throw new Exception('Error: route with alias ' . $alias . ' not found');
+			die();
+		}
+
+		return self::$aliases[$alias];
 	}
 }
