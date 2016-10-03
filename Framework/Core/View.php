@@ -18,10 +18,4 @@ class View
 		];
 	}
 
-	// Maybe this should not be here but we'll let it be for now
-	public static function redirect($alias)
-	{
-		$uri = Router::getRouteForAlias($alias);
-		header('Location: ' . $uri);
-	}
 }
