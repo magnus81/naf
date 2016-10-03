@@ -22,6 +22,7 @@ class Pages extends Controller
 
 	public static function postHome()
 	{
+		//return View::redirect('testpage');
 		return View::render('index', ['test' => Request::get('username', 'no name')]);
 	}
 
