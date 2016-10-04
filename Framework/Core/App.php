@@ -1,7 +1,7 @@
 <?php
-namespace Framework\Framework\Core;
+namespace App\Framework\Core;
 
-use Framework\Framework\Core\Router;
+use App\Framework\Core\Router;
 
 /**
  * App

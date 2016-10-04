@@ -1,11 +1,11 @@
 <?php
-namespace Framework\Controllers;
+namespace App\Controllers;
 
-use Framework\Framework\Core\Controller;
-use Framework\Framework\Core\Request;
-use Framework\Framework\Core\View;
-use Framework\Framework\Core\Log;
-use Framework\Framework\Core\DB;
+use App\Framework\Core\Controller;
+use App\Framework\Core\Request;
+use App\Framework\Core\View;
+use App\Framework\Core\Log;
+use App\Framework\Core\DB;
 
 /**
  * Pages controller

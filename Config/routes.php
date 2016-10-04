@@ -1,5 +1,5 @@
 <?php
-use Framework\Framework\Core\Router;
+use App\Framework\Core\Router;
 
 Router::get('/', [
 	'controller' => 'Pages',

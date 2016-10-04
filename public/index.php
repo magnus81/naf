@@ -10,4 +10,4 @@
 require __DIR__ . '/../framework/autoloader.php';
 
 // Go a head and run the application
-Framework\Framework\Core\App::run();
+App\Framework\Core\App::run();

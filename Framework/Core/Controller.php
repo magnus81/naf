@@ -1,5 +1,5 @@
 <?php
-namespace Framework\Framework\Core;
+namespace App\Framework\Core;
 
 /**
  * Controller

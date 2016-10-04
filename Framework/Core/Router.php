@@ -1,5 +1,5 @@
 <?php
-namespace Framework\Framework\Core;
+namespace App\Framework\Core;
 
 /**
  * Router
@@ -60,7 +60,7 @@ class Router
 			Request::collect();
 		}
 
-		return call_user_func_array(['Framework\\Controllers\\' . $controller, $func], []);
+		return call_user_func_array(['App\\Controllers\\' . $controller, $func], []);
 	}
 
 	/**
