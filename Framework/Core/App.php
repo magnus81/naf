@@ -30,4 +30,9 @@ class App
 
 		Render::view($res);
 	}
+
+	public static function close()
+	{
+		$_SESSION = array_merge($_SESSION, Session::all());
+	}
 }

@@ -14,6 +14,8 @@
 		</form>
 
 		<a href="<?php  echo route('testpage'); ?>">Here is a link for you</a>
+
+		<p>The session is: <?php echo $session; ?></p>
 		
 	</body>
 </html>
