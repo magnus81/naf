@@ -3,17 +3,17 @@ use App\Framework\Core\Router;
 
 Router::get('/', [
 	'controller' => 'Pages',
-	'func'       => 'home',
+	'call'       => 'home',
 	'alias'      => 'index'
 ]);
 
 Router::post('/', [
 	'controller' => 'Pages',
-	'func'       => 'postHome',
+	'call'       => 'postHome',
 ]);
 
 Router::get('/test', [
 	'controller' => 'Pages',
-	'func'       => 'test',
+	'call'       => 'test',
 	'alias'      => 'testpage'
 ]);

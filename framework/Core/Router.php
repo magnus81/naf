@@ -54,13 +54,13 @@ class Router
 		}
 
 		$controller = $found['controller'];
-		$func       = $found['func'];
+		$call       = $found['call'];
 
 		if ($method === 'POST') {
 			Request::collect();
 		}
 
-		return call_user_func_array(['App\\Controllers\\' . $controller, $func], []);
+		return call_user_func_array(['App\\Controllers\\' . $controller, $call], []);
 	}
 
 	/**
