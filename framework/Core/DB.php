@@ -19,16 +19,54 @@ class DB
 	public function __init__()
 	{
 		if (is_null(self::$instance))
-			self::$instance = new \mysqli('127.0.0.1', 'username', 'password', 'scheme') or die('Could not connect to db');
+			self::$instance = new \mysqli('127.0.0.1', 'root', 'password', 'test') or die('Could not connect to db');
 	}
 
 	public static function query($q)
 	{
 		$result = self::$instance->query($q);
 
-		if ($result->num_rows === 0)
+		if (is_null($result) || $result->num_rows === 0)
 			return false;
 
 		return $result->fetch_assoc();
+	}
+
+	public static function selectRow($q)
+	{
+		$result = self::$instance->query($q);
+
+		if (is_null($result) || $result->num_rows === 0)
+			return false;
+
+		return $result->fetch_assoc();
+	}
+
+	public static function selectVal($q)
+	{
+		$result = self::$instance->query($q);
+
+		if (is_null($result) || $result->num_rows === 0)
+			return false;
+
+		$arr = $result->fetch_assoc();
+
+		return $arr[key($arr)];
+	}
+
+	public static function select($q) 
+	{
+		$result = self::$instance->query($q);
+
+		if (is_null($result) || $result->num_rows === 0)
+			return false;
+
+		$ret = [];
+
+		while ($row = $result->fetch_assoc()) {
+			$ret[] = $row;
+		}
+
+		return $ret;
 	}
 }

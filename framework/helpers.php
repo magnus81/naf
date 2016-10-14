@@ -1,6 +1,7 @@
 <?php
 
-function view($view, $props = []) {
+function view($view, $props = []) 
+{
 	return App\Framework\Core\View::render($view, $props);
 }
 

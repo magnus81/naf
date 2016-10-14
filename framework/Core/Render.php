@@ -15,11 +15,8 @@ class Render
 		if (!empty($view[1])) {
 			// We have som variables that has to be set
 			foreach ($view[1] as $name => $value) {
-				Log::info($name . ' => ' . $value);
 				${$name} = $value;
 			}
-
-			Log::info('test is ' . $test);
 		}
 
 		include $view[0];
