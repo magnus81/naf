@@ -18,14 +18,12 @@ class Pages extends Controller
 {
 	public static function home()
 	{
-		$row = DB::selectVal('SELECT name FROM users WHERE id = 2');
-
-		Log::info($row);
+		$val = DB::selectVal('SELECT name FROM users WHERE id = 1');
 
 		$foo = Session::get('bar', 'empty');
 		return view('index', 
 			[
-				'test' => 'awesome', 
+				'test' => $val,
 				'session' => $foo
 			]
 		);
