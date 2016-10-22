@@ -13,7 +13,7 @@
 		<div class="container-fluid">
 			<h1>It works!</h1>
 
-			<p>This is <?php echo $test; ?></p>
+			<p>This is <strong><?php echo $test; ?></strong></p>
 
 			<form action="/" method="post">
 				<input type="text" name="username">
@@ -23,6 +23,8 @@
 			<br>
 
 			<a href="<?php  echo route('testpage'); ?>">Here is a link for you</a>
+
+			<br>
 
 			<p>The session is: <?php echo $session; ?></p>
 

@@ -22,7 +22,12 @@ class DB
 	public function __init__()
 	{
 		if (is_null(self::$instance))
-				self::$instance = new \mysqli('127.0.0.1', 'root', 'kalle', 'test');
+				self::$instance = new \mysqli(
+					Config::get('database.host'),
+					Config::get('database.user'),
+					Config::get('database.password'),
+					Config::get('database.scheme')
+				);
 
 		if (self::$instance->connect_errno) {
 			throw new Exception('DB connection error: ' . self::$instance->connect_error);
