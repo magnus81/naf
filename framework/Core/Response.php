@@ -18,6 +18,9 @@ class Response
 
 	public static function json($arr)
 	{
-		// Placeholder
+		return [
+			'type' => 'json',
+			'json' => json_encode($arr)
+		];
 	}
 }

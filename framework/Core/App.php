@@ -28,7 +28,7 @@ class App
 		
 		$res = Router::route();
 
-		Render::view($res);
+		Render::response($res);
 	}
 
 	public static function close()

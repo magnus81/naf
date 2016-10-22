@@ -10,15 +10,27 @@ namespace App\Framework\Core;
 
 class Render
 {
-	public static function view($view)
+	public static function response($data)
 	{
-		if (!empty($view[1])) {
-			// We have som variables that has to be set
-			foreach ($view[1] as $name => $value) {
+		if ($data['type'] === 'view')
+			self::view($data);
+
+		self::json($data);
+	}
+
+	public static function view($data)
+	{
+		if (!empty($data['props'])) {
+			foreach ($data['props'] as $name => $value) {
 				${$name} = $value;
 			}
 		}
 
-		include $view[0];
+		include $data['view'];
+	}
+
+	public static function json($data)
+	{
+		echo $data['json'];
 	}
 }

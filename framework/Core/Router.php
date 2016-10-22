@@ -56,7 +56,7 @@ class Router
 		$controller = $found['controller'];
 		$call       = $found['call'];
 
-		if ($method === 'POST') {
+		if ($method === 'POST' || $method === 'GET') {
 			Request::collect();
 		}
 

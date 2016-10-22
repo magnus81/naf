@@ -13,8 +13,9 @@ class View
 	public static function render($view, $props = [])
 	{
 		return [
-			BASE_PATH . '/views/' . $view . '.php',
-			$props
+			'type'  => 'view',
+			'view'  => BASE_PATH . '/views/' . $view . '.php',
+			'props' => $props
 		];
 	}
 

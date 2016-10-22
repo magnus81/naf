@@ -7,9 +7,20 @@ Router::get('/', [
 	'alias'      => 'index'
 ]);
 
+/**
+ * Test FORM post
+ */
 Router::post('/', [
 	'controller' => 'Pages',
 	'call'       => 'postHome',
+]);
+
+/**
+ * Test AJAX post
+ */
+Router::post('/ajaxTest', [
+	'controller' => 'Ajax',
+	'call'       => 'test',
 ]);
 
 Router::get('/test', [
