@@ -12,10 +12,14 @@ class Render
 {
 	public static function response($data)
 	{
-		if ($data['type'] === 'view')
-			self::view($data);
-
-		self::json($data);
+		switch ($data['type']) {
+			case 'view':
+				self::view($data);
+				break;
+			case 'json':
+				self::json($data);
+				break;
+		}
 	}
 
 	public static function view($data)
@@ -31,6 +35,6 @@ class Render
 
 	public static function json($data)
 	{
-		echo $data['json'];
+		echo json_encode($data['json'], JSON_FORCE_OBJECT);
 	}
 }

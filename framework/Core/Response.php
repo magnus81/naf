@@ -20,7 +20,7 @@ class Response
 	{
 		return [
 			'type' => 'json',
-			'json' => json_encode($arr)
+			'json' => $arr
 		];
 	}
 }
