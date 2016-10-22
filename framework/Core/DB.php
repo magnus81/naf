@@ -10,6 +10,9 @@ namespace App\Framework\Core;
 
 /**
  * Basic db stuff, needs improvements
+ * TODO:
+ * 	move all credentials to config
+ * 	add charset and stuff
  */
 
 class DB
@@ -19,10 +22,15 @@ class DB
 	public function __init__()
 	{
 		if (is_null(self::$instance))
-			self::$instance = new \mysqli('127.0.0.1', 'root', 'password', 'test') or die('Could not connect to db');
+				self::$instance = new \mysqli('127.0.0.1', 'root', 'kalle', 'test');
+
+		if (self::$instance->connect_errno) {
+			throw new Exception('DB connection error: ' . self::$instance->connect_error);
+			die();
+		}
 	}
 
-	public static function query($q)
+	public static function query($q, $foo)
 	{
 		$result = self::$instance->query($q);
 
