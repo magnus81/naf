@@ -1,6 +1,8 @@
 <?php
 
+// Define paths
 define('BASE_PATH', realpath(__DIR__ . '/..'));
+define('VIEW_PATH', realpath(__DIR__ . '/..') . '/views/');
 
 /**
  * autoloader

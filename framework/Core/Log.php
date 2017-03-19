@@ -15,6 +15,9 @@ class Log
 	public static function info($msg)
 	{
 		if (is_array($msg)) $msg = print_r($msg, true);
+
+		$msg = date('Y-m-d H:i:s') . ' [info] ' . $msg;
+		
 		file_put_contents(self::$path . 'test.log', $msg . PHP_EOL, FILE_APPEND);
 	}
 }

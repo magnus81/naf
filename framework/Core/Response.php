@@ -10,9 +10,16 @@ namespace App\Framework\Core;
 
 class Response
 {
-	public static function redirect($alias)
+	public static function redirect($alias, $values = [])
 	{
+		// /forum/{id}/{thread}
 		$uri = Router::getRouteForAlias($alias);
+		
+		$pattern = '/({\w+})/';
+		foreach ($values as $val) {
+			$uri = preg_replace($pattern, $val, $uri, 1);
+		}
+
 		header('Location: ' . $uri);
 	}
 

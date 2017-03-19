@@ -33,33 +33,57 @@ class DB
 			throw new Exception('DB connection error: ' . self::$instance->connect_error);
 			die();
 		}
+
+		self::$instance->set_charset('latin1');
 	}
 
-	public static function query($q, $foo)
+	public static function query($q, $vals = [])
 	{
+		if (strpos($q, '?') !== false)
+			$q = self::replace_first($vals, $q);
+
 		$result = self::$instance->query($q);
 
-		if (is_null($result) || $result->num_rows === 0)
+		if (!$result || $result->num_rows === 0)
 			return false;
 
 		return $result->fetch_assoc();
 	}
 
-	public static function selectRow($q)
+	public static function insert($q, $vals = [])
 	{
+		if (strpos($q, '?') !== false)
+			$q = self::replace_first($vals, $q);
+
 		$result = self::$instance->query($q);
 
-		if (is_null($result) || $result->num_rows === 0)
+		if (!$result || $result->num_rows === 0)
+			return false;
+
+		return self::$instance->insert_id;
+	}
+
+	public static function selectRow($q, $vals = [])
+	{
+		if (strpos($q, '?') !== false)
+			$q = self::replace_first($vals, $q);
+
+		$result = self::$instance->query($q);
+
+		if (!$result || $result->num_rows === 0)
 			return false;
 
 		return $result->fetch_assoc();
 	}
 
-	public static function selectVal($q)
+	public static function selectVal($q, $vals = [])
 	{
+		if (strpos($q, '?') !== false)
+			$q = self::replace_first($vals, $q);
+
 		$result = self::$instance->query($q);
 
-		if (is_null($result) || $result->num_rows === 0)
+		if (!$result || $result->num_rows === 0)
 			return false;
 
 		$arr = $result->fetch_assoc();
@@ -67,11 +91,14 @@ class DB
 		return $arr[key($arr)];
 	}
 
-	public static function select($q) 
+	public static function select($q, $vals = [])
 	{
+		if (strpos($q, '?') !== false)
+			$q = self::replace_first($vals, $q);
+		
 		$result = self::$instance->query($q);
 
-		if (is_null($result) || $result->num_rows === 0)
+		if (!$result || $result->num_rows === 0)
 			return false;
 
 		$ret = [];
@@ -81,5 +108,16 @@ class DB
 		}
 
 		return $ret;
+	}
+
+	private static function replace_first($vals, $subject)
+	{
+		$from = '/'.preg_quote('?', '/').'/';
+
+		foreach ($vals as $s) {
+			$subject = preg_replace($from, "'" . self::$instance->real_escape_string($s) . "'", $subject, 1);
+		}
+
+		return $subject;
 	}
 }

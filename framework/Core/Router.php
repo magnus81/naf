@@ -34,6 +34,28 @@ class Router
 	 */
 	private static $aliases;
 
+	/**
+	 * Router::$current_route
+	 *
+	 * Store current route
+	 * @var string
+	 */
+	private static $current_route;
+
+	/**
+	 * Router::$current_alias
+	 *
+	 * Store current alias
+	 * @var string
+	 */
+	private static $current_alias;
+
+	/**
+	 * Router::route();
+	 * 
+	 * Resolve route and return Controller::method
+	 * @return
+	 */
 	public static function route()
 	{
 		// Set path to routes file
@@ -55,12 +77,17 @@ class Router
 
 		$controller = $found['controller'];
 		$call       = $found['call'];
+		$values     = (isset($found['values']) ? $found['values'] : []);
 
 		if ($method === 'POST' || $method === 'GET') {
 			Request::collect();
 		}
+		
+		self::$current_route = $route;
+		if (isset($found['alias']))
+			self::$current_alias = $found['alias'];
 
-		return call_user_func_array(['App\\Controllers\\' . $controller, $call], []);
+		return call_user_func_array(['App\\Controllers\\' . $controller, $call], $values);
 	}
 
 	/**
@@ -72,7 +99,32 @@ class Router
 	 */
 	private static function checkRoute($route, $method)
 	{
-		return (isset(self::$routes[$method][$route]) ? self::$routes[$method][$route] : false);
+		/*
+		$route = /forum/1
+		/forum/{id}
+		 */
+		if (isset(self::$routes[$method][$route]))
+			return self::$routes[$method][$route];
+
+		// Need to check routes with variables
+		// TODO: Move this
+		$pattern = '/({\w+})/';
+		foreach (self::$routes[$method] as $saved => $arr) {
+			if (strpos($saved, '{') !== false && strpos($saved, '}') !== false) {
+				$route_pattern = preg_replace($pattern, '([\w\d]+)', $saved);
+				$route_pattern = '/^' . str_replace('/', '\/', $route_pattern) . '$/';
+
+				preg_match($route_pattern, $route, $matches);
+				
+				if (isset($matches[0])) {
+					array_shift($matches);
+					self::$routes[$method][$saved]['values'] = $matches;
+					return self::$routes[$method][$saved];
+				}
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -95,6 +147,11 @@ class Router
 	public static function get($route, $props = null)
 	{
 		self::$routes['GET'][$route] = $props;
+
+		$vars = self::checkRouteVariables($route);
+
+		if ($vars !== false)
+			self::$routes['GET'][$route]['variables'] = $vars;
 
 		if (isset($props['alias']))
 			self::addAlias($props['alias'], $route);
@@ -142,5 +199,45 @@ class Router
 		}
 
 		return self::$aliases[$alias];
+	}
+
+	/**
+	 * Router::checkRouteVariables
+	 *
+	 * Check if route has any variables and return them
+	 * @param  string $route
+	 * @return array/bool
+	 */
+	private static function checkRouteVariables($route)
+	{
+		$pattern = '/{([\w]+)}/';
+		preg_match_all($pattern, $route, $m);
+		
+		if (empty($m[1]))
+			return false;
+
+		return $m[1];
+	}
+
+	/**
+	 * Router::getCurrentRoute
+	 *
+	 * Return current route
+	 * @return string
+	 */
+	public static function getCurrentRoute()
+	{
+		return self::$current_route;
+	}
+
+	/**
+	 * Router::getCurrentAlias
+	 *
+	 * Return current alias
+	 * @return string
+	 */
+	public static function getCurrentAlias()
+	{
+		return self::$current_alias;
 	}
 }

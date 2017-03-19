@@ -17,7 +17,7 @@ class Request
 	public static function collect()
 	{
 		self::$values = $_REQUEST;
-		
+
 		if (isset(self::$values['HTTP_X_REQUESTED_WITH']) && self::$values['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest')
 			self::$is_ajax = true;
 	}

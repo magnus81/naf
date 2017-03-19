@@ -19,13 +19,6 @@ class App
 	 */
 	public static function run()
 	{
-		/*
-		What to do here
-		- Setup configs maybe
-		- Route
-		- Request
-		 */
-		
 		$res = Router::route();
 
 		Render::response($res);
