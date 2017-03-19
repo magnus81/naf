@@ -22,13 +22,13 @@
 
 			<br>
 
-			<a href="<?php  echo route('testpage'); ?>">Here is a link for you</a>
+			<a href="<?php echo route('testpage'); ?>">Here is a link for you</a>
 
 			<br>
 
 			<p>The session is: <?php echo $session; ?></p>
 
-			<h3>This is an AJAX request</h3>
+			<h3>AJAX request</h3>
 
 			<form id="ajax-test">
 				<input type="text" id="ajax-username" name ="username">
